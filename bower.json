@@ -1,9 +1,9 @@
 {
   "name": "angular-fileupload",
-  "version": "v1.0.22",
+  "version": "v1.0.3",
   "description": "A wrapper around the Filereader API",
   "homepage": "https://github.com/matteosuppo/angular-filereader",
-  "main": ["./filereader.service.js"],
+  "main": ["./angular-filereader.min.js"],
   "authors": [
     "Matteo Suppo <matteo.suppo@gmail.com>"
   ],

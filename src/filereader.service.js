@@ -51,7 +51,7 @@ angular.module('filereader', [])
 
       return deferred.promise;
     };
-    
+
     // Read a file as a text
     var readAsText = function(file, encoding, scope) {
       var deferred = $q.defer();

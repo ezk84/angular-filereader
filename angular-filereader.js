@@ -3,7 +3,7 @@
 // From http://odetocode.com/blogs/scott/archive/2013/07/03/building-a-filereader-service-for-angularjs-the-service.aspx
 
 angular.module('filereader', [])
-  .factory('FileReader', function ($q, $window) {
+  .factory('FileReader', ['$q', '$window', function ($q, $window) {
 
     // Wrap the onLoad event in the promise
     var onLoad = function(reader, deferred, scope) {
@@ -66,4 +66,4 @@ angular.module('filereader', [])
       readAsDataURL: readAsDataURL,
       readAsText: readAsText
     };
-  });
+  }]);

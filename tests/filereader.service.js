@@ -55,25 +55,25 @@ describe('Service: FileReader', function () {
     $scope = $rootScope.$new();
   }));
 
-  describe('Method: readAsDataUrl', function () {
+  describe('Method: readAsDataURL', function () {
 
     it('should return a promise', function () {
-      var promise = FileReader.readAsDataUrl('file', $scope);
+      var promise = FileReader.readAsDataURL('file', $scope);
       expect(promise.then).toBeDefined();
     });
 
     it('should instantiate a FileReader instance', function () {
-      FileReader.readAsDataUrl('file', $scope);
+      FileReader.readAsDataURL('file', $scope);
       expect($window.FileReader).toHaveBeenCalled();
     });
 
     it('should call readAsDataURL', function () {
-      FileReader.readAsDataUrl('file', $scope);
+      FileReader.readAsDataURL('file', $scope);
       expect(MockFileReader.readAsDataURL).toHaveBeenCalledWith('file');
     });
 
     it('should resolve promise when onload is called', function () {
-      var promise = FileReader.readAsDataUrl('file', $scope);
+      var promise = FileReader.readAsDataURL('file', $scope);
       var success, error;
 
       promise.then(function (resp) {
@@ -89,7 +89,7 @@ describe('Service: FileReader', function () {
     });
 
     it('should reject promise when onerror is called', function () {
-      var promise = FileReader.readAsDataUrl('error', $scope);
+      var promise = FileReader.readAsDataURL('error', $scope);
       var success, error;
 
       promise.then(function () {
@@ -112,7 +112,7 @@ describe('Service: FileReader', function () {
         loaded = data.loaded;
       });
 
-      FileReader.readAsDataUrl('progress', $scope);
+      FileReader.readAsDataURL('progress', $scope);
 
       $scope.$apply();
 
