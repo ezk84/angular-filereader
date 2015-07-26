@@ -62,8 +62,19 @@ angular.module('filereader', [])
       return deferred.promise;
     };
 
+    // Read a file as a binary data
+    var readAsBinaryString = function (file, scope) {
+      var deferred = $q.defer();
+
+      var reader = getReader(deferred, scope);
+      reader.readAsBinaryString(file);
+
+      return deferred.promise;
+    };
+
     return {
       readAsDataURL: readAsDataURL,
+      readAsBinaryString: readAsBinaryString,
       readAsText: readAsText
     };
   }]);
