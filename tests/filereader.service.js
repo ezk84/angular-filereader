@@ -33,11 +33,23 @@ describe('Service: FileReader', function () {
           this.result = 'fileError';
           this.onerror();
         }
-      }
+      },
+      readAsBinaryString: function (file) {
+        if (file === 'file') {
+          this.result = 'readedFile';
+          this.onload();
+        } else if (file === 'progress') {
+          this.onprogress({total: 70, loaded: 30});
+        } else {
+          this.result = 'fileError';
+          this.onerror();
+        }
+      },
     };
 
     spyOn(MockFileReader, 'readAsDataURL').and.callThrough();
     spyOn(MockFileReader, 'readAsText').and.callThrough();
+    spyOn(MockFileReader, 'readAsBinaryString').and.callThrough();
 
     // Mock window
     $window = {
@@ -180,6 +192,73 @@ describe('Service: FileReader', function () {
       });
 
       FileReader.readAsText('progress', 'utf-8', $scope);
+
+      $scope.$apply();
+
+      expect(total).toEqual(70);
+      expect(loaded).toEqual(30);
+    });
+
+  });
+
+  describe('Method: readAsBinaryString', function () {
+
+    it('should return a promise', function () {
+      var promise = FileReader.readAsBinaryString('file', $scope);
+      expect(promise.then).toBeDefined();
+    });
+
+    it('should instantiate a FileReader instance', function () {
+      FileReader.readAsBinaryString('file', $scope);
+      expect($window.FileReader).toHaveBeenCalled();
+    });
+
+    it('should call readAsBinaryString', function () {
+      FileReader.readAsBinaryString('file', $scope);
+      expect(MockFileReader.readAsBinaryString).toHaveBeenCalledWith('file');
+    });
+
+    it('should resolve promise when onload is called', function () {
+      var promise = FileReader.readAsBinaryString('file', $scope);
+      var success, error;
+
+      promise.then(function (resp) {
+        success = resp;
+      }, function () {
+        error = 'this should never happen';
+      });
+
+      $scope.$apply();
+
+      expect(error).not.toBeDefined();
+      expect(success).toEqual('readedFile');
+    });
+
+    it('should reject promise when onerror is called', function () {
+      var promise = FileReader.readAsBinaryString('error', $scope);
+      var success, error;
+
+      promise.then(function () {
+        success = 'this should never happen';
+      }, function (err) {
+        error = err;
+      });
+
+      $scope.$apply();
+
+      expect(success).not.toBeDefined();
+      expect(error).toEqual('fileError');
+    });
+
+    it('should broadcast an event when onprogress is called', function () {
+      var total, loaded;
+
+      $scope.$on('fileProgress', function (event, data) {
+        total = data.total;
+        loaded = data.loaded;
+      });
+
+      FileReader.readAsBinaryString('progress', $scope);
 
       $scope.$apply();
 
