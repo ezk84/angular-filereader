@@ -34,12 +34,16 @@ Inject the service in your controller
 
     function controller ($scope, FileReader) {
 
-Call the readAsDataURL method with a File or Blob object. Remember that you also
-have to pass the $scope.
+Call one of the readAs* methods with a File or Blob object. Remember that you also
+have to pass the $scope in addition to the normal [FileReader](https://developer.mozilla.org/en/docs/Web/API/FileReader) arguments.
+
+Currently the following methods are supported:
 
       FileReader.readAsDataURL(file, $scope)
+      FileReader.readAsText(file, encoding, $scope)
+      FileReader.readAsBinaryString(file, $scope)
 
-readAsDataURL returns a promise, so you can call then on it
+These methods return a promise, so you can call then on it
 
         .then(function (resp) {
             // Do stuff
@@ -48,8 +52,8 @@ readAsDataURL returns a promise, so you can call then on it
             // Do stuff
         });
 
-readAsDataUrl also broadcast the fileProgress event. You can listen for it to
-check on the progress of the loading
+The readAs* methods also broadcast the fileProgress event to the given scope. You can
+listen for it to check on the progress of the loading
 
     $scope.$on('fileProgress', function (event, data) {
         // data = {
@@ -83,7 +87,7 @@ DEVELOPMENT
 
 Remember to install all dependencies:
 
-    $ npm install -g gulp  // It's like grunt but cooler
+    $ npm install -g gulp-cli  // It's like grunt but cooler
     $ npm install
     $ bower install
 
