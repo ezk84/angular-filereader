@@ -21,11 +21,12 @@
     "gulp": "^3.6.2",
     "gulp-concat": "^2.2.0",
     "gulp-karma": "0.0.5",
-    "gulp-ngmin": "^0.3.0",
+    "gulp-ng-annotate": "^2.0.0",
     "gulp-uglify": "^1.0.0",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13",
     "karma-chrome-launcher": "^1.0.0",
-    "karma-jasmine": "^1.0.0"
+    "karma-jasmine": "^1.0.0",
+    "ng-annotate": "^1.2.1"
   }
 }

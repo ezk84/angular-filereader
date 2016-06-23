@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 var karma = require('gulp-karma');
 var concat = require('gulp-concat');
-var ngmin = require('gulp-ngmin');
+var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 
 /* Test files with karma */
@@ -33,7 +33,7 @@ gulp.task('build:concat', function () {
 
 gulp.task('build:minify', function () {
   return gulp.src('src/*.js')
-    .pipe(ngmin())
+    .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(concat('angular-filereader.min.js'))
     .pipe(gulp.dest('.'));
